@@ -10,7 +10,12 @@ export const billSlice = createSlice({
   },
   reducers: {
     addToBill: (state, action) => {
+      
       var flag = 1;
+      const index = JSON.parse(JSON.stringify(state.products)).findIndex(object => {
+        return object.id === action.payload.product.id;
+      });
+
       state.total += action.payload.price;
 
       state.products.forEach((product) => {
@@ -21,17 +26,19 @@ export const billSlice = createSlice({
       if(flag) {
         state.products = [...state.products, action.payload.product];
       } else {
-        var productIndex = state.products.find((product) => {
-          return product.id === action.payload.product.id;
-        });
-        const index = JSON.parse(JSON.stringify(state.products)).findIndex(object => {
-          return object.id === action.payload.product.id;
-        });
         state.products[index].quantity += 1;
       }
     },
     substractFromBill: (state, action) => {
-        state.total -= action.payload
+
+        const index = JSON.parse(JSON.stringify(state.products)).findIndex(object => {
+          return object.id === action.payload.product.id;
+        });
+
+        if(state.products[index].quantity > 1) {
+          state.total -= action.payload.price;
+          state.products[index].quantity -= 1;
+        }
     }
   }
 })

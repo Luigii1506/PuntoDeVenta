@@ -1,11 +1,8 @@
 import React from "react";
-import { useState, useEffect } from "react";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { addToBill, substractFromBill } from "../slices/billSlice";
 
 const BillProduct = ({ id }) => {
-  const todos = useSelector((state) => state.bill.products);
-
   const product = useSelector(
     (state) =>
       state.bill.products.find((prod) => {

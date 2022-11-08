@@ -22,8 +22,6 @@ import {
 } from "react-icons/ai";
 import { RiDashboardFill } from "react-icons/ri";
 
-import { useSelector, useDispatch } from "react-redux";
-
 export default function Home() {
   const [open, setOpen] = useState(true);
   const [submenuOpen, setSubmenuOpen] = useState(false);
