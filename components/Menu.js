@@ -12,11 +12,3 @@ const Menu = ({ products }) => {
 }
 
 export default Menu;
-
-/*
- <div className="grid grid-cols-4 gap-y-5">
-    {products.map((product, index) =>
-        <CardProduct key={index} handleAddProductBill={handleAddProductBill} product={product} />
-    )}
-</div>
-*/

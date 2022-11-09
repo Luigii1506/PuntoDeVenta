@@ -31,7 +31,7 @@ export const billSlice = createSlice({
     },
     substractFromBill: (state, action) => {
 
-        const index = JSON.parse(JSON.stringify(state.products)).findIndex(object => {
+        const index = state.products.findIndex(object => {
           return object.id === action.payload.product.id;
         });
 
@@ -39,11 +39,22 @@ export const billSlice = createSlice({
           state.total -= action.payload.price;
           state.products[index].quantity -= 1;
         }
+    },
+    deleteProduct: (state, action) => {
+
+      const index = state.products.findIndex(object => {
+        return object.id === action.payload;
+      });
+
+      state.total -= (state.products[index].quantity * state.products[index].price);
+      state.products = state.products.slice(0, index).concat(state.products.slice(index + 1));
+      //console.log('state antes',JSON.parse(JSON.stringify(state.products)));
+
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { addToBill, substractFromBill } = billSlice.actions
+export const { addToBill, substractFromBill, deleteProduct } = billSlice.actions
 
 export default billSlice.reducer;
