@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import BillPreview from "../components/BillPreview";
+import Modal from "../components/Modal";
 import Menu from "../components/Menu";
 import {
   BsArrowLeftShort,
@@ -99,97 +100,97 @@ export default function Home() {
   ];
 
   return (
-    <div className="flex flex-wrap">
-      <div
-        className={`bg-dark-purple h-screen p-5 pt-8 ${
-          open ? "w-72" : "w-20"
-        } duration-300 relative`}
-      >
-        <BsArrowLeftShort
-          className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${
-            !open && "rotate-180"
-          }`}
-          onClick={() => setOpen(!open)}
-        />
-        <div className="inline-flex">
-          <AiFillEnvironment className="bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2" />
-          <h1
-            className={`text-white origin-left font-medium text-2xl duration-300 ${
-              !open && "scale-0"
-            }`}
-          >
-            Tailwind
-          </h1>
-        </div>
-
+      <div className="flex flex-wrap">
         <div
-          className={`flex items-center rounded-md bg-light-white mt-6 ${
-            !open ? "px-2.5" : "px-4"
-          } py-2`}
+          className={`bg-dark-purple h-screen p-5 pt-8 ${
+            open ? "w-72" : "w-20"
+          } duration-300 relative`}
         >
-          <BsSearch
-            className={`text-white text-lg block float-left cursor-pointer ${
-              open && "mr-2"
+          <BsArrowLeftShort
+            className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer ${
+              !open && "rotate-180"
             }`}
+            onClick={() => setOpen(!open)}
           />
-          <input
-            type={"search"}
-            className={`text-base bg-transparent w-full text-white focus:outline-none ${
-              !open && "hidden"
-            }`}
-            placeholder="search"
-          />
-        </div>
+          <div className="inline-flex">
+            <AiFillEnvironment className="bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2" />
+            <h1
+              className={`text-white origin-left font-medium text-2xl duration-300 ${
+                !open && "scale-0"
+              }`}
+            >
+              Tailwind
+            </h1>
+          </div>
 
-        <ul className="pt-2">
-          {Menus.map((menu, index) => (
-            <>
-              <li
-                key={index}
-                className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${
-                  menu.spacing ? "mt-9" : "mt-2"
-                }`}
-              >
-                <span className="text-2xl block float-left">
-                  {menu.icon ? menu.icon : <RiDashboardFill />}
-                </span>
-                <span
-                  className={`text-base font-medium flex-1 duration-200 ${
-                    !open && "hidden"
+          <div
+            className={`flex items-center rounded-md bg-light-white mt-6 ${
+              !open ? "px-2.5" : "px-4"
+            } py-2`}
+          >
+            <BsSearch
+              className={`text-white text-lg block float-left cursor-pointer ${
+                open && "mr-2"
+              }`}
+            />
+            <input
+              type={"search"}
+              className={`text-base bg-transparent w-full text-white focus:outline-none ${
+                !open && "hidden"
+              }`}
+              placeholder="search"
+            />
+          </div>
+
+          <ul className="pt-2">
+            {Menus.map((menu, index) => (
+              <>
+                <li
+                  key={index}
+                  className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md ${
+                    menu.spacing ? "mt-9" : "mt-2"
                   }`}
                 >
-                  {menu.title}
-                </span>
-                {menu.submenu && open && (
-                  <BsChevronDown
-                    className={`${submenuOpen && "rotate-180"}`}
-                    onClick={() => setSubmenuOpen(!submenuOpen)}
-                  />
-                )}
-              </li>
+                  <span className="text-2xl block float-left">
+                    {menu.icon ? menu.icon : <RiDashboardFill />}
+                  </span>
+                  <span
+                    className={`text-base font-medium flex-1 duration-200 ${
+                      !open && "hidden"
+                    }`}
+                  >
+                    {menu.title}
+                  </span>
+                  {menu.submenu && open && (
+                    <BsChevronDown
+                      className={`${submenuOpen && "rotate-180"}`}
+                      onClick={() => setSubmenuOpen(!submenuOpen)}
+                    />
+                  )}
+                </li>
 
-              {menu.submenu && submenuOpen && open && (
-                <ul>
-                  {menu.submenuItems.map((submenuItem, index) => (
-                    <li
-                      key={index}
-                      className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
-                    >
-                      {submenuItem.title}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </>
-          ))}
-        </ul>
+                {menu.submenu && submenuOpen && open && (
+                  <ul>
+                    {menu.submenuItems.map((submenuItem, index) => (
+                      <li
+                        key={index}
+                        className="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md"
+                      >
+                        {submenuItem.title}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
+            ))}
+          </ul>
+        </div>
+        <div className="h-screen flex-auto p-5">
+          <Menu products={MenuFake} />
+        </div>
+        <div className="h-screen basis-1/5 border-8 border-black p-3">
+          <BillPreview />
+        </div>
       </div>
-      <div className="bg-red-500 h-26 flex-auto p-5">
-        <Menu products={MenuFake} />
-      </div>
-      <div className="bg-blue-500 h-26 basis-1/5">
-        <BillPreview />
-      </div>
-    </div>
   );
 }

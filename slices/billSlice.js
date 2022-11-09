@@ -4,8 +4,9 @@ export const billSlice = createSlice({
   name: 'bill',
   initialState: {
     table: 0,
-    num_cuenta: 0,
+    account_number: 0,
     total: 0,
+    iva: 16,
     products: []
   },
   reducers: {
@@ -49,12 +50,17 @@ export const billSlice = createSlice({
       state.total -= (state.products[index].quantity * state.products[index].price);
       state.products = state.products.slice(0, index).concat(state.products.slice(index + 1));
       //console.log('state antes',JSON.parse(JSON.stringify(state.products)));
+    },
+    addDescount: (state, action) => {
 
+    },
+    addTip: (state, action) => {
+    
     }
   }
 })
 
 // Action creators are generated for each case reducer function
-export const { addToBill, substractFromBill, deleteProduct } = billSlice.actions
+export const { addToBill, substractFromBill, deleteProduct, addDescount, addTip } = billSlice.actions;
 
 export default billSlice.reducer;
