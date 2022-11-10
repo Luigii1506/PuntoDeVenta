@@ -1,3 +1,9 @@
 .bill_wrapper {
     height: 100vh;
 }
+
+.bill_height {
+    height: calc(100% - 350px);
+    max-height: fit-content;
+    overflow: auto;
+}

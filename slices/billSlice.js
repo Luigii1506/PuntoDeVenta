@@ -5,8 +5,11 @@ export const billSlice = createSlice({
   initialState: {
     table: 0,
     account_number: 0,
+    subtotal: 0,
     total: 0,
     iva: 16,
+    descuento: 0,
+    received: 0,
     products: []
   },
   reducers: {
@@ -17,15 +20,16 @@ export const billSlice = createSlice({
         return object.id === action.payload.product.id;
       });
 
-      state.total += action.payload.price;
-
+      state.subtotal += action.payload.price;
+      state.total = state.subtotal + ((state.subtotal * state.iva) / 100);
+      
       state.products.forEach((product) => {
         if(product.id === action.payload.product.id)
           flag = 0;
       });
 
       if(flag) {
-        state.products = [...state.products, action.payload.product];
+        state.products = [action.payload.product, ...state.products];
       } else {
         state.products[index].quantity += 1;
       }
@@ -37,7 +41,8 @@ export const billSlice = createSlice({
         });
 
         if(state.products[index].quantity > 1) {
-          state.total -= action.payload.price;
+          state.subtotal -= action.payload.price;
+          state.total = (state.subtotal * state.iva) / 100;
           state.products[index].quantity -= 1;
         }
     },
@@ -47,14 +52,24 @@ export const billSlice = createSlice({
         return object.id === action.payload;
       });
 
-      state.total -= (state.products[index].quantity * state.products[index].price);
+      state.subtotal -= (state.products[index].quantity * state.products[index].price);
+      state.total = (state.subtotal * state.iva) / 100;
       state.products = state.products.slice(0, index).concat(state.products.slice(index + 1));
       //console.log('state antes',JSON.parse(JSON.stringify(state.products)));
     },
     addDescount: (state, action) => {
 
+      if(state.descuento > 0) {
+        state.total += state.descuento;
+      }
+
+      state.descuento = ((state.total * action.payload) / 100);
+      state.total -= state.descuento;
+
     },
     addTip: (state, action) => {
+
+      state.descuento += ((state.total * action.payload) / 100);
     
     }
   }
