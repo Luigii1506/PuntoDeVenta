@@ -8,10 +8,18 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        "dark-purple": "#081A51",
-        "light-white": 'rgb(255,255,255,0.18)'
+
       }
     },
   },
-  plugins: [],
+  plugins: [require("daisyui")],
+  daisyui: {
+    styled: true,
+    themes: ["light", "dark", "garden","wireframe"],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",
+  },
 }
