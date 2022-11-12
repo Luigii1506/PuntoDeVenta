@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import BillProduct from "./BillProduct";
 import { RiDashboardFill } from "react-icons/ri";
 import { useSelector, useDispatch } from "react-redux";
@@ -7,19 +7,42 @@ import styles from "../styles/Bill.module.css";
 import { addDescount } from "../slices/billSlice";
 import { BsCashCoin, BsCreditCard } from "react-icons/bs";
 
+import useBill from "../store/store";
+
 const BillPreview = () => {
-  const total = useSelector((state) => state.bill.total);
-  const subtotal = useSelector((state) => state.bill.subtotal);
-  const cuenta = useSelector((state) => state.bill.products);
-  const descuento = useSelector((state) => state.bill.descuento);
-  const iva = useSelector((state) => state.bill.iva);
+  
+  const cuenta = [];
+
+  // Modales
   const [showModalSaveBill, setShowModalSaveBill] = useState(false);
-  const [showModalDiscount, setShowModalDiscount] = useState(false);
   const [showModalPayBill, setShowModalPayBill] = useState(false);
+
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [dropDownOpen, setDropDownOpen] = useState(false);
 
-  const dispatch = useDispatch();
+  const [total, setTotal] = useState(0);
+  const total_state = useBill((state) => state.total);
+
+  const [subtotal, setSubTotal] = useState(0);
+  const subtotal_state = useBill((state) => state.subtotal);
+
+  const [iva, setIva] = useState(0);
+  const iva_state = useBill((state) => state.iva);
+
+  const [discount, setDiscount] = useState(0);
+  const discount_state = useBill((state) => state.discount);
+
+  const reset = useBill((state) => state.reset);
+
+  useEffect(() => {
+    //reset();
+    setTotal(total_state);
+    setSubTotal(subtotal_state);
+    setIva(iva_state);
+    setDiscount(discount_state);
+  }, [total_state, subtotal_state, iva_state, discount_state]);
+
+  const addToBill = useBill((state) => state.addToBill);
 
   return (
     <div className="h-full p-5">
@@ -118,7 +141,7 @@ const BillPreview = () => {
                 </li>
               </ul>
             </div>
-            <span className="text-2xl mr-2">${descuento.toFixed(2)} MXN</span>
+            <span className="text-2xl mr-2">${discount.toFixed(2)} MXN</span>
           </div>
         </div>
         <div className="flex justify-between mb-5">
@@ -151,82 +174,6 @@ const BillPreview = () => {
           <h3 className="text-xl font-semibold text-gray-900 mb-5">
             Modal Title
           </h3>
-        </div>
-      </Modal>
-
-      <Modal
-        isVisible={showModalDiscount}
-        onClose={() => setShowModalDiscount(false)}
-      >
-        <div className="p-6">
-          <h3 className="text-xl font-semibold text-gray-900 mb-5">
-            Descuento
-          </h3>
-          <hr className="border-1"></hr>
-          <div className="mt-6">
-            <form className="space-y-6" action="#">
-              <div>
-                <label
-                  for="email"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Descuento
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="16%"
-                  required
-                />
-              </div>
-              <div>
-                <label
-                  for="password"
-                  className="block mb-2 text-sm font-medium text-gray-900"
-                >
-                  Contraseña
-                </label>
-                <input
-                  type="password"
-                  name="password"
-                  id="password"
-                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="************"
-                  required
-                />
-              </div>
-              <div className="flex justify-between">
-                <div className="flex items-start">
-                  <div className="flex items-center h5">
-                    <input
-                      id="remember"
-                      type="checkbox"
-                      value=""
-                      className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
-                      required
-                    />
-                  </div>
-                  <label
-                    for="remember"
-                    className="ml-2 text-sm font-medium text-gray-900"
-                  >
-                    Remember me
-                  </label>
-                </div>
-                <a href="#" className="text-sm text-blue-700 hover:undereline">
-                  Lost Password?
-                </a>
-              </div>
-              <button
-                type="submit"
-                className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-              >
-                Save
-              </button>
-            </form>
-          </div>
         </div>
       </Modal>
 

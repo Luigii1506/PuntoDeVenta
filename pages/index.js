@@ -133,7 +133,7 @@ export default function Home() {
           <ul className="menu menu-compact flex flex-col p-0 px-4">
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/install"
                 id=""
                 className="flex gap-4"
@@ -160,7 +160,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/use"
                 id=""
                 className="flex gap-4"
@@ -187,7 +187,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/customize"
                 id=""
                 className="flex gap-4"
@@ -214,7 +214,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/config"
                 id=""
                 className="flex gap-4"
@@ -241,7 +241,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/colors"
                 id=""
                 className="flex gap-4"
@@ -263,7 +263,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/themes"
                 id=""
                 className="flex gap-4"
@@ -290,7 +290,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/theme-generator"
                 id=""
                 className="flex gap-4"
@@ -321,7 +321,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/docs/layout-and-typography"
                 id=""
                 className="flex gap-4"
@@ -349,7 +349,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/button"
                 id=""
                 className="flex gap-4"
@@ -360,7 +360,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/dropdown"
                 id=""
                 className="flex gap-4"
@@ -374,7 +374,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/modal"
                 id=""
                 className="flex gap-4"
@@ -385,7 +385,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/swap"
                 id=""
                 className="flex gap-4"
@@ -402,7 +402,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/alert"
                 id=""
                 className="flex gap-4"
@@ -413,7 +413,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/avatar"
                 id=""
                 className="flex gap-4"
@@ -424,7 +424,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/badge"
                 id=""
                 className="flex gap-4"
@@ -435,7 +435,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/card"
                 id=""
                 className="flex gap-4"
@@ -446,7 +446,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/carousel"
                 id=""
                 className="flex gap-4"
@@ -457,7 +457,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/collapse"
                 id=""
                 className="flex gap-4"
@@ -468,7 +468,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/countdown"
                 id=""
                 className="flex gap-4"
@@ -479,7 +479,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/kbd"
                 id=""
                 className="flex gap-4"
@@ -490,7 +490,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/progress"
                 id=""
                 className="flex gap-4"
@@ -501,7 +501,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/radial-progress"
                 id=""
                 className="flex gap-4"
@@ -512,7 +512,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/stat"
                 id=""
                 className="flex gap-4"
@@ -523,7 +523,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/table"
                 id=""
                 className="flex gap-4"
@@ -534,7 +534,7 @@ export default function Home() {
             </li>
             <li>
               <a
-                sveltekitPrefetch=""
+                
                 href="/components/tooltip"
                 id=""
                 className="flex gap-4"

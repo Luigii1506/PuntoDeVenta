@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux'
-import { addToBill, substractFromBill } from '../slices/billSlice'
+import { substractFromBill } from '../slices/billSlice'
+import useBill from "../store/store";
 
-const CardProduct = ({ product }) => {
+const CardProduct = ({product}) => {
 
-  const dispatch = useDispatch()
+  const addToBill = useBill((state) => state.addToBill);
 
   return (
-    <div className="card w-96 bg-base-100 shadow-xl cursor-pointer m-auto" onClick={() => dispatch(addToBill({price: product.price, product: product}))}>
+    <div className="card w-96 bg-base-100 shadow-xl cursor-pointer m-auto" onClick={() => addToBill(product)}>
       <figure>
         <img src="https://placeimg.com/400/225/arch" alt="Shoes" />
       </figure>
