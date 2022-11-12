@@ -10,10 +10,8 @@ import { BsCashCoin, BsCreditCard } from "react-icons/bs";
 import useBill from "../store/store";
 
 const BillPreview = () => {
-  
-  const cuenta = [];
-
   // Modales
+
   const [showModalSaveBill, setShowModalSaveBill] = useState(false);
   const [showModalPayBill, setShowModalPayBill] = useState(false);
 
@@ -32,6 +30,9 @@ const BillPreview = () => {
   const [discount, setDiscount] = useState(0);
   const discount_state = useBill((state) => state.discount);
 
+  const [products, setProducts] = useState([]);
+  const products_state = useBill((state) => state.products);
+
   const reset = useBill((state) => state.reset);
 
   useEffect(() => {
@@ -40,7 +41,9 @@ const BillPreview = () => {
     setSubTotal(subtotal_state);
     setIva(iva_state);
     setDiscount(discount_state);
-  }, [total_state, subtotal_state, iva_state, discount_state]);
+    setProducts(products_state);
+
+  }, [total_state, subtotal_state, iva_state, discount_state, products_state]);
 
   const addToBill = useBill((state) => state.addToBill);
 
@@ -57,8 +60,8 @@ const BillPreview = () => {
       <div className={`${styles.bill_height}`}>
         <div className="max-h-fit">
           <div className="flex flex-col gap-y-4">
-            {cuenta.map((product, index) => (
-              <BillProduct key={index} id={product.id} />
+            {products.map((product, index) => (
+              <BillProduct key={index} product={product} />
             ))}
           </div>
         </div>
@@ -92,7 +95,7 @@ const BillPreview = () => {
                 <li
                   className={`${discountPercentage === 15 ? "hidden" : ""}`}
                   onClick={(event) => {
-                    if (cuenta.length > 0) {
+                    if (products.length > 0) {
                       setDiscountPercentage(15);
                       dispatch(addDescount(event.target.dataset.value));
                       setDropDownOpen(false);
@@ -104,7 +107,7 @@ const BillPreview = () => {
                 <li
                   className={`${discountPercentage === 10 ? "hidden" : ""}`}
                   onClick={(event) => {
-                    if (cuenta.length > 0) {
+                    if (products.length > 0) {
                       setDiscountPercentage(10);
                       dispatch(addDescount(event.target.dataset.value));
                       setDropDownOpen(false);
@@ -116,7 +119,7 @@ const BillPreview = () => {
                 <li
                   className={`${discountPercentage === 5 ? "hidden" : ""}`}
                   onClick={(event) => {
-                    if (cuenta.length > 0) {
+                    if (products.length > 0) {
                       setDiscountPercentage(5);
                       dispatch(addDescount(event.target.dataset.value));
                       setDropDownOpen(false);
@@ -129,7 +132,7 @@ const BillPreview = () => {
                 <li
                   className={`${discountPercentage === 0 ? "hidden" : ""}`}
                   onClick={(event) => {
-                    if (cuenta.length > 0) {
+                    if (products.length > 0) {
                       setDiscountPercentage(0);
                       dispatch(addDescount(event.target.dataset.value));
                       setDropDownOpen(false);

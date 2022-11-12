@@ -1,22 +1,22 @@
-import React from "react";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
-import {
-  addToBill,
-  substractFromBill,
-  deleteProduct,
-} from "../slices/billSlice";
+import React, { useEffect } from "react";
 import { RiDashboardFill } from "react-icons/ri";
+import useBill from "../store/store";
 
-const BillProduct = ({ id }) => {
-  const product = useSelector(
+const BillProduct = ({product}) => {
+
+  const product_state = useBill(
     (state) =>
-      state.bill.products.find((prod) => {
-        return prod.id == id;
-      }),
-    shallowEqual
+      state.products.find((prod) => {
+        return prod.id == product.id;
+      })
   );
 
-  const dispatch = useDispatch();
+  const addToBill = useBill((state) => state.addToBill);
+  const substractFromBill = useBill((state) => state.substractFromBill);
+
+  useEffect(() => {
+   
+  }, [product_state]);
 
   return (
     <div className="w-full">
@@ -29,12 +29,12 @@ const BillProduct = ({ id }) => {
         <div className="flex flex-col justify-between p-4 leading-normal">
           <div className="flex justify-between items-start py-4 rounded-t">
             <h3 className="text-xl font-semibold text-gray-900 dark:text-white mr-5">
-              {product.name}
+              {product_state.name}
             </h3>
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white "
-              onClick={() => dispatch(deleteProduct(id))}
+              onClick={() => console.log('')}
             >
               <svg
                 aria-hidden="true"
@@ -53,25 +53,19 @@ const BillProduct = ({ id }) => {
           </div>
 
           <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-            ${product.price.toFixed(2)} MX
+            ${product_state.price.toFixed(2)} MX
           </p>
           <div>
             <button
               className="rounded-full bg-white text-lg w-7 h-7"
-              onClick={() =>
-                dispatch(
-                  substractFromBill({ price: product.price, product: product })
-                )
-              }
+              onClick={() => substractFromBill(product)}
             >
               -
             </button>
-            <span className="text-white mx-6 text-xl">{product.quantity}</span>
+            <span className="text-white mx-6 text-xl">{product_state.quantity}</span>
             <button
               className="rounded-full bg-white text-lg w-7 h-7"
-              onClick={() =>
-                dispatch(addToBill({ price: product.price, product: product }))
-              }
+              onClick={() => addToBill(product) }
             >
               +
             </button>
