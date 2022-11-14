@@ -21,6 +21,7 @@ const useBill = create(
         const state = get();
 
         var flag = 1;
+
         state.products.forEach((prod) => {
           if (prod.id === product.id) {
             flag = 0;
@@ -45,9 +46,11 @@ const useBill = create(
         const state = get();
 
         var price = 0;
+        var flag = 0;
 
         const newProducts = state.products.map((obj) => {
           if(obj.quantity > 1) {
+            flag = 1;
             if (obj.id === product.id) {
               price = product.price;
               return { ...obj, quantity: obj.quantity -1 };
@@ -56,11 +59,28 @@ const useBill = create(
           return obj;
         });
 
+        console.log('Flag', flag);
+        console.log('subtotal', state.subtotal);
+        console.log('total', state.total);
+
         set(() => ({
-          subtotal: (state.subtotal -= price),
-          total: (state.subtotal * state.iva) / 100,
+          subtotal: flag ? (state.subtotal -= price) : state.subtotal,
+          total: flag ? (state.subtotal + (state.subtotal * state.iva) / 100) : state.total,
           products: newProducts
         }))
+
+      },
+      deleteProduct: (product) => {
+        const state = get();
+
+        console.log('el producto', product);
+        console.log('poductos', state.products);
+
+        const objWithIdIndex = state.products.findIndex((obj) => obj.id === product.id);
+
+        set(() => ({
+          products: state.products.splice(objWithIdIndex, 1)
+        }));
 
       },
       reset: () => {

@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { RiDashboardFill } from "react-icons/ri";
 import useBill from "../store/store";
 
-const BillProduct = ({product}) => {
+const BillProduct = ({ product }) => {
 
   const product_state = useBill(
     (state) =>
@@ -13,9 +13,10 @@ const BillProduct = ({product}) => {
 
   const addToBill = useBill((state) => state.addToBill);
   const substractFromBill = useBill((state) => state.substractFromBill);
+  const deleteProduct = useBill((state) => state.deleteProduct);
 
   useEffect(() => {
-   
+    
   }, [product_state]);
 
   return (
@@ -34,7 +35,7 @@ const BillProduct = ({product}) => {
             <button
               type="button"
               className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white "
-              onClick={() => console.log('')}
+              onClick={() => deleteProduct(product)}
             >
               <svg
                 aria-hidden="true"
