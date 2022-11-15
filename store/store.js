@@ -40,7 +40,6 @@ const useBill = create(
                 return obj;
               }),
         }));
-
       },
       substractFromBill: (product) => {
         const state = get();
@@ -49,39 +48,42 @@ const useBill = create(
         var flag = 0;
 
         const newProducts = state.products.map((obj) => {
-          if(obj.quantity > 1) {
+          if (obj.quantity > 1) {
             flag = 1;
             if (obj.id === product.id) {
               price = product.price;
-              return { ...obj, quantity: obj.quantity -1 };
+              return { ...obj, quantity: obj.quantity - 1 };
             }
           }
           return obj;
         });
 
-        console.log('Flag', flag);
-        console.log('subtotal', state.subtotal);
-        console.log('total', state.total);
+        console.log("Flag", flag);
+        console.log("subtotal", state.subtotal);
+        console.log("total", state.total);
 
         set(() => ({
           subtotal: flag ? (state.subtotal -= price) : state.subtotal,
-          total: flag ? (state.subtotal + (state.subtotal * state.iva) / 100) : state.total,
-          products: newProducts
-        }))
-
+          total: flag
+            ? state.subtotal + (state.subtotal * state.iva) / 100
+            : state.total,
+          products: newProducts,
+        }));
       },
       deleteProduct: (product) => {
         const state = get();
 
-        console.log('el producto', product);
-        console.log('poductos', state.products);
-
-        const objWithIdIndex = state.products.findIndex((obj) => obj.id === product.id);
-
         set(() => ({
-          products: state.products.splice(objWithIdIndex, 1)
+          subtotal: state.subtotal - product.quantity * product.price,
+          total:
+            state.subtotal -
+            product.quantity * product.price +
+            ((state.subtotal - product.quantity * product.price) * state.iva) /
+              100,
+          products: state.products.filter(function (item) {
+            return item.id !== product.id;
+          }),
         }));
-
       },
       reset: () => {
         set(initialState);

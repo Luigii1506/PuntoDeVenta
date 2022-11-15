@@ -43,9 +43,8 @@ const BillPreview = () => {
     setDiscount(discount_state);
     setProducts(products_state);
 
-  }, [total_state, subtotal_state, iva_state, discount_state, products_state]);
+  }, [subtotal_state, iva_state, discount_state, products_state]);
 
-  const addToBill = useBill((state) => state.addToBill);
 
   return (
     <div className="h-full p-5">
