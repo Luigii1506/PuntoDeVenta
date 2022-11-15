@@ -34,6 +34,7 @@ const BillPreview = () => {
   const products_state = useBill((state) => state.products);
 
   const reset = useBill((state) => state.reset);
+  const addDiscount = useBill((state) => state.addDiscount);
 
   useEffect(() => {
     //reset();
@@ -43,7 +44,7 @@ const BillPreview = () => {
     setDiscount(discount_state);
     setProducts(products_state);
 
-  }, [subtotal_state, iva_state, discount_state, products_state]);
+  }, [total_state,subtotal_state, iva_state, discount_state, products_state]);
 
 
   return (
@@ -96,7 +97,7 @@ const BillPreview = () => {
                   onClick={(event) => {
                     if (products.length > 0) {
                       setDiscountPercentage(15);
-                      dispatch(addDescount(event.target.dataset.value));
+                      addDiscount(event.target.dataset.value);
                       setDropDownOpen(false);
                     }
                   }}
@@ -108,7 +109,7 @@ const BillPreview = () => {
                   onClick={(event) => {
                     if (products.length > 0) {
                       setDiscountPercentage(10);
-                      dispatch(addDescount(event.target.dataset.value));
+                      addDiscount(event.target.dataset.value);
                       setDropDownOpen(false);
                     }
                   }}
@@ -120,9 +121,8 @@ const BillPreview = () => {
                   onClick={(event) => {
                     if (products.length > 0) {
                       setDiscountPercentage(5);
-                      dispatch(addDescount(event.target.dataset.value));
+                      addDiscount(event.target.dataset.value);
                       setDropDownOpen(false);
-                      console.log("5", dropDownOpen);
                     }
                   }}
                 >
@@ -133,9 +133,8 @@ const BillPreview = () => {
                   onClick={(event) => {
                     if (products.length > 0) {
                       setDiscountPercentage(0);
-                      dispatch(addDescount(event.target.dataset.value));
+                      addDiscount(event.target.dataset.value);
                       setDropDownOpen(false);
-                      console.log("0", dropDownOpen);
                     }
                   }}
                 >

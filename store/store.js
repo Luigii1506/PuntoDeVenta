@@ -58,10 +58,6 @@ const useBill = create(
           return obj;
         });
 
-        console.log("Flag", flag);
-        console.log("subtotal", state.subtotal);
-        console.log("total", state.total);
-
         set(() => ({
           subtotal: flag ? (state.subtotal -= price) : state.subtotal,
           total: flag
@@ -85,6 +81,21 @@ const useBill = create(
           }),
         }));
       },
+      addDiscount: (discount) => {
+
+        const state = get();
+
+        var total_discount;
+        var total = state.total;     
+
+        total += state.discount;    
+        total_discount = discount > 0 ? ((total * discount) / 100) : 0;
+        
+        set(() => ({
+          discount: total_discount,
+          total: total - total_discount,
+        }));
+      },
       reset: () => {
         set(initialState);
       },
@@ -93,3 +104,7 @@ const useBill = create(
   )
 );
 export default useBill;
+
+/*
+  discount: state.discount > 0 ? (state.discount + (state.total * discount) / 100) : ((state.total * discount) / 100),
+*/

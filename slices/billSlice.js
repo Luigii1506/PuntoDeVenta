@@ -55,7 +55,7 @@ export const billSlice = createSlice({
       state.subtotal -= (state.products[index].quantity * state.products[index].price);
       state.total = (state.subtotal * state.iva) / 100;
       state.products = state.products.slice(0, index).concat(state.products.slice(index + 1));
-      //console.log('state antes',JSON.parse(JSON.stringify(state.products)));
+      //console.log('sadtate antes',JSON.parse(JSON.stringify(state.products)));
     },
     addDescount: (state, action) => {
 
