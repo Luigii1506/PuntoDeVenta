@@ -11,6 +11,7 @@ const initialState = {
   iva: 16,
   discount: 0,
   received: 0,
+  discount_rate: 0
 };
 
 const useBill = create(
@@ -21,6 +22,7 @@ const useBill = create(
         const state = get();
 
         var flag = 1;
+        
 
         state.products.forEach((prod) => {
           if (prod.id === product.id) {
@@ -28,9 +30,12 @@ const useBill = create(
           }
         });
 
+        var subtotal = (state.subtotal += product.price);
+        var total = (subtotal + (subtotal * state.iva) / 100);
+
         set(() => ({
-          subtotal: (state.subtotal += product.price),
-          total: state.subtotal + (state.subtotal * state.iva) / 100,
+          subtotal: subtotal,
+          total: state.discount_rate > 0 ? (total - ((total * state.discount_rate) / 100)) : total,
           products: flag
             ? [...state.products, product]
             : state.products.map((obj) => {
@@ -39,6 +44,7 @@ const useBill = create(
                 }
                 return obj;
               }),
+          discount: (total * state.discount_rate) / 100,
         }));
       },
       substractFromBill: (product) => {
@@ -58,12 +64,14 @@ const useBill = create(
           return obj;
         });
 
+        var subtotal = flag ? (state.subtotal -= price) : state.subtotal;
+        var total = flag ? subtotal + (subtotal * state.iva) / 100 : state.total;
+
         set(() => ({
-          subtotal: flag ? (state.subtotal -= price) : state.subtotal,
-          total: flag
-            ? state.subtotal + (state.subtotal * state.iva) / 100
-            : state.total,
+          subtotal: subtotal,
+          total: state.discount_rate > 0 && flag ? (total - ((total * state.discount_rate) / 100)) : total,
           products: newProducts,
+          discount: flag ? (total * state.discount_rate) / 100 : state.discount,
         }));
       },
       deleteProduct: (product) => {
@@ -90,10 +98,11 @@ const useBill = create(
 
         total += state.discount;    
         total_discount = discount > 0 ? ((total * discount) / 100) : 0;
-        
+
         set(() => ({
           discount: total_discount,
           total: total - total_discount,
+          discount_rate: discount
         }));
       },
       reset: () => {
